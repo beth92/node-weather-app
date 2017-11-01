@@ -9,7 +9,7 @@ var getUser = (id, callback) => {
   callback(user);
 };
 
-//synchronous callback. Here is where we define the callback function 
+//synchronous callback. Here is where we define the callback function
 getUser(31, (user) => {
   console.log(user);
 });
