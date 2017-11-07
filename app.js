@@ -1,10 +1,8 @@
 /*jshint esversion: 6 */
-
-const request = require('request');
 const yargs = require('yargs');
 
-
 const geocode = require('./geocode/geocode');
+const weather = require('./weather/weather.js');
 
 const argv = yargs.options({
   a: {
@@ -22,6 +20,13 @@ geocode.geocodeAddress(argv.address, (errorMessage, results)=>{
   if (errorMessage){
     console.log(errorMessage);
   } else {
-    console.log(JSON.stringify(results, undefined, 4));
+    console.log(`Weather at ${results.address}: `);
+    weather.getWeather(results.latitude,results.longitude, (errorMessage, weatherResults)=>{
+      if(errorMessage){
+        console.log(errorMessage);
+      } else {
+        console.log(`Current temperature is ${weatherResults.temperature}, feels like ${weatherResults.feelsLike}`);
+      }
+    });
   }
 });
